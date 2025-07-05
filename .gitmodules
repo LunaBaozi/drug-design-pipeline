@@ -4,3 +4,9 @@
 [submodule "external/graphbp"]
 	path = external/graphbp
 	url = https://github.com/divelab/AIRS.git
+[submodule "hope-box"]
+	path = hope-box
+	url = https://github.com/LunaBaozi/hope-box.git
+[submodule "external/hope-box"]
+	path = external/hope-box
+	url = https://github.com/LunaBaozi/hope-box.git
