@@ -1,0 +1,3 @@
+[submodule "external/equibind"]
+	path = external/equibind
+	url = https://github.com/HannesStark/EquiBind.git
