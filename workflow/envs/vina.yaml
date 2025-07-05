@@ -1,0 +1,9 @@
+name: vina
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - autodock-vina
+  - meeko
+  - rdkit
+  - python=3.8

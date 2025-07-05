@@ -6,23 +6,24 @@ import os
 # Configuration
 configfile: "config/config.yaml"
 
-# Validate configuration
-validate(config, schema="workflow/schemas/config.schema.yaml")
-
 # Load sample information
 samples = pd.read_csv(config["samples"], sep="\t").set_index("sample", drop=False)
-validate(samples, schema="workflow/schemas/samples.schema.yaml")
 
 # Include rules
 include: "workflow/rules/common.smk"
-include: "workflow/rules/preprocessing.smk"
-include: "workflow/rules/modeling.smk"
-include: "workflow/rules/postprocessing.smk"
+include: "workflow/rules/graphbp.smk"
+include: "workflow/rules/hope_box.smk"
+include: "workflow/rules/equibind.smk"
+include: "workflow/rules/vina_box.smk"
 
-# Target rule
+# Target rule - defines the final outputs
 rule all:
     input:
-        expand("results/final/{sample}_final.txt", sample=samples.index)
+        # Final docking results for all samples
+        expand("results/final_results/{sample}_docking_complete.txt", sample=samples.index),
+        # Summary plots and tables
+        "results/plots/pipeline_summary.png",
+        "results/tables/final_summary.csv"
 
 # Clean rule
 rule clean:

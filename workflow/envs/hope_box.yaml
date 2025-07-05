@@ -1,0 +1,8 @@
+name: hope_box  
+channels:
+  - conda-forge
+dependencies:
+  - python=3.8
+  - rdkit
+  - pandas
+  - numpy
