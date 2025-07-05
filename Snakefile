@@ -1,30 +1,30 @@
 # Snakefile
-configfile: "config.yaml"
+from snakemake.utils import validate
+import pandas as pd
+import os
 
+# Configuration
+configfile: "config/config.yaml"
+
+# Validate configuration
+validate(config, schema="workflow/schemas/config.schema.yaml")
+
+# Load sample information
+samples = pd.read_csv(config["samples"], sep="\t").set_index("sample", drop=False)
+validate(samples, schema="workflow/schemas/samples.schema.yaml")
+
+# Include rules
+include: "workflow/rules/common.smk"
+include: "workflow/rules/preprocessing.smk"
+include: "workflow/rules/modeling.smk"
+include: "workflow/rules/postprocessing.smk"
+
+# Target rule
 rule all:
     input:
-        "results/final_output.txt"
+        expand("results/final/{sample}_final.txt", sample=samples.index)
 
-rule preprocess:
-    input:
-        "data/raw_input.txt"
-    output:
-        "results/preprocessed.txt"
+# Clean rule
+rule clean:
     shell:
-        "cd external/preprocessing && python preprocess.py ../../{input} ../../{output}"
-
-rule main_model:
-    input:
-        "results/preprocessed.txt"
-    output:
-        "results/model_output.txt"
-    shell:
-        "python your_main_model.py {input} {output}"
-
-rule postprocess:
-    input:
-        "results/model_output.txt"
-    output:
-        "results/final_output.txt"
-    shell:
-        "cd external/postprocessing && python postprocess.py ../../{input} ../../{output}"
+        "rm -rf results/ data/processed/"

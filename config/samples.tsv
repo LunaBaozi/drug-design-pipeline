@@ -1,0 +1,5 @@
+sample	condition	batch	path
+sample1	control	1	data/raw/sample1.fastq
+sample2	treatment	1	data/raw/sample2.fastq
+sample3	control	2	data/raw/sample3.fastq
+sample4	treatment	2	data/raw/sample4.fastq

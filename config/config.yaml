@@ -1,0 +1,30 @@
+# Sample metadata
+samples: "config/samples.tsv"
+
+# External repositories configuration
+external_repos:
+  model1:
+    path: "external/model-repo-1"
+    script: "run_model.py"
+    conda_env: "workflow/envs/model1.yaml"
+  postprocessing:
+    path: "external/postprocessing-tool"
+    script: "process.py"
+    conda_env: "workflow/envs/postprocessing.yaml"
+
+# Pipeline parameters
+params:
+  threads: 8
+  memory: "16G"
+  quality_threshold: 20
+  model_threshold: 0.5
+
+# Output directories
+output_dir: "results"
+log_dir: "results/logs"
+benchmark_dir: "results/benchmarks"
+
+# Resource files
+resources:
+  reference: "resources/reference/genome.fa"
+  database: "resources/databases/database.db"

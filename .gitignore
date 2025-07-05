@@ -1,0 +1,42 @@
+# Snakemake
+.snakemake/
+*.pyc
+__pycache__/
+
+# Results and temporary files
+results/
+data/processed/
+.temp/
+*.tmp
+
+# Logs
+*.log
+logs/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Conda
+*.conda
+*.tar.bz2
+
+# Don't ignore essential empty directories
+!data/raw/.gitkeep
+!resources/reference/.gitkeep
+!external/.gitkeep
