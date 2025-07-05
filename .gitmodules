@@ -10,3 +10,6 @@
 [submodule "external/hope-box"]
 	path = external/hope-box
 	url = https://github.com/LunaBaozi/hope-box.git
+[submodule "external/vina-box"]
+	path = external/vina-box
+	url = https://github.com/LunaBaozi/vina-box.git
