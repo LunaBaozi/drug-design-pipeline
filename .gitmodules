@@ -1,3 +1,6 @@
 [submodule "external/equibind"]
 	path = external/equibind
 	url = https://github.com/HannesStark/EquiBind.git
+[submodule "external/graphbp"]
+	path = external/graphbp
+	url = https://github.com/divelab/AIRS.git
