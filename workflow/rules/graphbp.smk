@@ -1,30 +1,18 @@
 # GraphBP molecular generation/prediction
-
-# rule run_graphbp:
-#     input:
-#         config="config/config.yaml"
-#     output:
-#         molecules="results/graphbp/{sample}_molecules.sdf",
-#         predictions="results/graphbp/{sample}_predictions.csv"
-#     params:
-#         sample="{sample}",
-#         graphbp_dir="external/graphbp"
-#     conda:
-#         "../envs/graphbp.yaml"
-#     log:
-#         "results/logs/graphbp/{sample}.log"
-#     shell:
-#         """
-#         cd {params.graphbp_dir} && \
-#         python main.py \
-#             --sample {params.sample} \
-#             --output_molecules {output.molecules} \
-#             --output_predictions {output.predictions} \
-#             2> {log}
-#         """
-
-
 import time
+
+# Define config flags to control skipping
+skip_generate = config.get("skip_generate", False)
+
+# Centralize wildcards and params for consistency
+wildcards = {
+    "trained_model_path": config["trained_model_path"],
+    "epoch": config["epoch"],
+    "num_gen": config["num_gen"],
+    "known_binding_site": config["known_binding_site"],
+    "aurora": config["aurora"],
+    "pdbid": config["pdbid"]
+}
 
 start_time = time.time()
 
@@ -38,27 +26,14 @@ onerror:
     elapsed = end_time - start_time
     print(f"Pipeline failed after {elapsed:.2f} seconds ({elapsed/60:.2f} minutes)")
 
-rule all: 
-    input: 
-        expand(
-            [
-            "docking/{pdbid}/experiment_epoch_{epoch}_mols_{num_gen}_bs_{known_binding_site}_pdbid_{pdbid}/vina_results_postprocessed.csv",
-            "docking/{pdbid}/experiment_epoch_{epoch}_mols_{num_gen}_bs_{known_binding_site}_pdbid_{pdbid}/pareto_front.csv",
-            "docking/{pdbid}/experiment_epoch_{epoch}_mols_{num_gen}_bs_{known_binding_site}_pdbid_{pdbid}/sa_vs_affinity_plot.png"
-            ],
-            # [
-            # "post_hoc_filtering/results_epoch_{epoch}_mols_{num_gen}_bs_{known_binding_site}_pdbid_{pdbid}/merged_scores_{epoch}_{num_gen}_{known_binding_site}_{pdbid}.csv",
-            # "post_hoc_filtering/results_epoch_{epoch}_mols_{num_gen}_bs_{known_binding_site}_pdbid_{pdbid}/top_100_tanimoto_{epoch}_{num_gen}_{known_binding_site}_{pdbid}.csv",
-            # "post_hoc_filtering/results_epoch_{epoch}_mols_{num_gen}_bs_{known_binding_site}_pdbid_{pdbid}/top_50_sascore_{epoch}_{num_gen}_{known_binding_site}_{pdbid}.csv"
-            # ],
-            **wildcards
-        )
 
 # if not skip_generate:
 rule generate:
     output:
         "{trained_model_path}/epoch_{epoch}_mols_{num_gen}_bs_{known_binding_site}_pdbid_{pdbid}.mol_dict"
     params: wildcards
+    conda:
+        "../envs/graphbp/graphbp_conda_env.yaml"
     benchmark:
         "benchmarks/generate_{trained_model_path}_epoch_{epoch}_mols_{num_gen}_bs_{known_binding_site}_pdbid_{pdbid}.txt"
     shell:
@@ -71,8 +46,35 @@ rule evaluate:
     output:
         directory("{trained_model_path}/gen_mols_epoch_{epoch}_mols_{num_gen}_bs_{known_binding_site}_pdbid_{pdbid}/sdf")
     params: wildcards
+    conda:
+        "../envs/graphbp/graphbp_conda_env.yaml"
     benchmark:
         "benchmarks/evaluate_{trained_model_path}_epoch_{epoch}_mols_{num_gen}_bs_{known_binding_site}_pdbid_{pdbid}.txt"
     shell:
         "{config[python_env_path]} main_eval.py --num_gen {wildcards[num_gen]} --epoch {wildcards[epoch]} "
         "--known_binding_site {wildcards[known_binding_site]} --pdbid {wildcards[pdbid]}"
+
+
+# rule run_graphbp_generation:
+#     output:
+#         "results/graphbp/{sample}_epoch_{epoch}_mols_{num_gen}_bs_{known_binding_site}_pdbid_{pdbid}.mol_dict"
+#     params:
+#         sample = "{sample}",
+#         epoch = "{epoch}",
+#         num_gen = "{num_gen}",
+#         known_binding_site = "{known_binding_site}",
+#         pdbid = "{pdbid}",
+#         output_dir = "results/graphbp"
+#     conda:
+#         "../envs/graphbp.yaml"
+#     shell:
+#         """
+#         mkdir -p {params.output_dir}
+#         cd external/graphbp/OpenMI/GraphBP/GraphBP && \
+#         python main_gen.py \
+#             --epoch {params.epoch} \
+#             --num_gen {params.num_gen} \
+#             --known_binding_site {params.known_binding_site} \
+#             --pdbid {params.pdbid} \
+#             --output_path ../../../../{output}
+#         """

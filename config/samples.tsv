@@ -1,3 +1,3 @@
-sample	protein_path	pdbid	condition
-sample1	data/raw/protein1.pdb	4af3	control
-sample2	data/raw/protein2.pdb	4ceg	treatment
+pdbid	protein_path	gene
+4af3	data/proteins/protein1.pdb	AURKB
+4cfg	data/proteins/protein2.pdb	AURKA
