@@ -1,9 +1,6 @@
 [submodule "external/equibind"]
 	path = external/equibind
 	url = https://github.com/HannesStark/EquiBind.git
-[submodule "external/graphbp"]
-	path = external/graphbp
-	url = https://github.com/divelab/AIRS.git
 [submodule "hope-box"]
 	path = hope-box
 	url = https://github.com/LunaBaozi/hope-box.git
@@ -13,3 +10,6 @@
 [submodule "external/vina-box"]
 	path = external/vina-box
 	url = https://github.com/LunaBaozi/vina-box.git
+[submodule "external/graphbp"]
+	path = external/graphbp
+	url = https://github.com/LunaBaozi/AIRS.git
