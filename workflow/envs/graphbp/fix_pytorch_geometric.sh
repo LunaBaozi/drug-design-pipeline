@@ -8,7 +8,7 @@ echo "Fixing PyTorch Geometric Extensions"
 echo "============================================"
 
 # Activate your environment (replace with your actual environment name)
-ENV_NAME="graphbp_complete"  # Change this to your environment name
+ENV_NAME="graphbp_pipeline_env"  # Change this to your environment name
 source $(conda info --base)/etc/profile.d/conda.sh
 conda activate $ENV_NAME
 

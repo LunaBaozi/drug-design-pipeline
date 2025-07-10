@@ -36,6 +36,45 @@ Thumbs.db
 *.conda
 *.tar.bz2
 
+# External - GraphBP
+external/graphbp/OpenMI/GraphBP/GraphBP/analyses/
+external/graphbp/OpenMI/GraphBP/GraphBP/images/
+external/graphbp/OpenMI/GraphBP/GraphBP/trained_model/
+external/graphbp/OpenMI/GraphBP/GraphBP/trained_model_reduced_dataset_100_epochs/
+external/graphbp/OpenMI/GraphBP/GraphBP/*.pyc
+external/graphbp/OpenMI/GraphBP/GraphBP/*.csv
+external/graphbp/OpenMI/GraphBP/GraphBP/*.png
+external/graphbp/OpenMI/GraphBP/GraphBP/*.sdf
+external/graphbp/OpenMI/GraphBP/GraphBP/*.dict
+external/graphbp/OpenMI/GraphBP/GraphBP/*.mol_dict
+external/graphbp/OpenMI/GraphBP/GraphBP/*.pkl
+external/graphbp/OpenMI/GraphBP/GraphBP/*.json
+external/graphbp/OpenMI/GraphBP/GraphBP/*.log
+external/graphbp/OpenMI/GraphBP/GraphBP/*.pth
+external/graphbp/OpenMI/GraphBP/GraphBP/*.map
+external/graphbp/OpenMI/GraphBP/GraphBP/*.pdb
+external/graphbp/OpenMI/GraphBP/GraphBP/*.fld
+external/graphbp/OpenMI/GraphBP/GraphBP/*.xyz
+external/graphbp/OpenMI/GraphBP/GraphBP/*.pdbqt
+external/graphbp/OpenMI/GraphBP/GraphBP/*.dat
+external/graphbp/OpenMI/GraphBP/GraphBP/*.txt
+external/graphbp/OpenMI/GraphBP/GraphBP/*.glg
+external/graphbp/OpenMI/GraphBP/GraphBP/*.gpf
+external/graphbp/OpenMI/GraphBP/GraphBP/post_hoc_filtering/post_processed_graphics.py 
+external/graphbp/OpenMI/GraphBP/GraphBP/post_hoc_filtering/filtering.py
+external/graphbp/OpenMI/GraphBP/GraphBP/post_hoc_filtering/brics_attempt.ipynb
+external/graphbp/OpenMI/GraphBP/GraphBP/post_hoc_filtering/known_inhib_analysis.py
+external/graphbp/OpenMI/GraphBP/GraphBP/.snakemake/
+external/graphbp/OpenMI/GraphBP/GraphBP/.snakemake*
+external/graphbp/OpenMI/GraphBP/GraphBP/latest.txt
+external/graphbp/OpenMI/GraphBP/GraphBP/notesfromthesis.txt
+external/graphbp/OpenMI/GraphBP/GraphBP/questionsandnotes.txt
+external/graphbp/OpenMI/GraphBP/GraphBP/sifting.txt
+external/graphbp/OpenMI/GraphBP/GraphBP/*.html
+
+
+
+
 # Don't ignore essential empty directories
 !data/raw/.gitkeep
 !resources/reference/.gitkeep

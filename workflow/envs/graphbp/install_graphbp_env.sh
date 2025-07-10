@@ -5,7 +5,7 @@
 
 set -e  # Exit on any error
 
-ENV_NAME="graphbp_complete"
+ENV_NAME="graphbp_pipeline_env"
 PYTHON_VERSION="3.10"
 
 echo "============================================"

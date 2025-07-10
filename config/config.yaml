@@ -1,12 +1,12 @@
 # Sample configuration
 samples: "config/samples.tsv"
-python_env_path: "conda run -n graphbp_complete python" #"python"  # or path to your conda environment
+# python_env_path: "conda run -n graphbp_complete python" #"python"  # or path to your conda environment
 
 # GraphBP parameters
-trained_model_path: "external/graphbp/trained_model_reduced_dataset_100_epochs"
-epoch: 33
-num_gen: 100
-known_binding_site: "True"
+trained_model_path: "external/graphbp/OpenMI/GraphBP/GraphBP/trained_model"
+epoch: 99
+num_gen: 1
+known_binding_site: False #"True"
 aurora: "B"
 pdbid: "4af3"
 

@@ -1,12 +1,12 @@
-name: graphbp_complete
+name: graphbp_pipeline_env
 channels:
+  - pytorch
+  - pyg
   - conda-forge
   - bioconda
-  - pytorch
-  - nvidia
+  - defaults
 dependencies:
   - python=3.10
-  - mamba
   # Core scientific computing
   - numpy
   - pandas
@@ -22,17 +22,20 @@ dependencies:
   # Workflow management
   - snakemake
   
-  # PyTorch (adjust cuda version as needed)
+  # PyTorch with CUDA - let conda resolve compatible versions
   - pytorch
-  - torchvision
+  - torchvision  
   - torchaudio
-  - pytorch-cuda=11.8  # Remove this line if you don't have CUDA
+  - pytorch-cuda=12.4
+  
+  # PyTorch Geometric - install via conda for better compatibility
+  - pyg
   
   # Pip dependencies
   - pip
   - pip:
     - biopython
     - torch-geometric
-    - torch-scatter
-    - torch-sparse
-    - torch-spline-conv
+    - torch-scatter -f https://data.pyg.org/whl/torch-2.4.0+cu124.html
+    - torch-sparse -f https://data.pyg.org/whl/torch-2.4.0+cu124.html
+    - torch-spline-conv -f https://data.pyg.org/whl/torch-2.4.0+cu124.html

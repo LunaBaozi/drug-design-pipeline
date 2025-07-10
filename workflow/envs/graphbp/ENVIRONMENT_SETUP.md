@@ -15,7 +15,7 @@ chmod +x install_graphbp_env.sh
 ```
 
 The script will:
-1. Create a new environment called `graphbp_complete`
+1. Create a new environment called `graphbp_pipeline_env`
 2. Install packages in the optimal order
 3. Handle CUDA detection automatically
 4. Verify all installations
@@ -37,7 +37,7 @@ conda env create -f graphbp_conda_env.yml
 After installation, activate the environment:
 
 ```bash
-conda activate graphbp_complete
+conda activate graphbp_pipeline_env
 ```
 
 ## Package List
@@ -54,7 +54,7 @@ The environment includes:
 
 If you encounter conflicts:
 
-1. **Remove existing environment**: `conda env remove -n graphbp_complete`
+1. **Remove existing environment**: `conda env remove -n graphbp_pipeline_env`
 2. **Clear conda cache**: `conda clean --all`
 3. **Try the script method**: It handles dependencies more carefully
 4. **Check CUDA compatibility**: Ensure your CUDA version matches PyTorch requirements
