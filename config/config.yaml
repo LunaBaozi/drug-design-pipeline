@@ -2,52 +2,6 @@
 # samples: "config/samples.tsv"
 # python_env_path: "conda run -n graphbp_complete python" #"python"  # or path to your conda environment
 
-# # GraphBP parameters
-# graphbp:
-#   trained_model_path: "external/graphbp/OpenMI/GraphBP/GraphBP/trained_model_reduced_dataset_100_epochs"
-#   epoch: 99
-#   num_gen: 1
-#   known_binding_site: False #"True"
-#   aurora: "B"
-#   pdbid: "4af3"
-
-# # Pipeline parameters
-# hope_box:
-#   num_gen: 100
-#   epoch: 50
-#   known_binding_site: "True"
-#   aurora: "B"
-
-# vina:
-#   epoch: 50
-#   num_mols: 100
-#   batch_size: "1"
-#   exhaustiveness: 32
-
-# # Resource settings
-# resources:
-#   graphbp:
-#     mem_mb: 8000
-#     threads: 4
-#   hope_box:
-#     mem_mb: 16000
-#     threads: 8
-#   equibind:
-#     mem_mb: 32000
-#     threads: 16
-#   vina:
-#     mem_mb: 8000
-#     threads: 4
-
-
-
-
-
-
-
-
-
-
 # Project structure configuration
 project_paths:
   base_dir: "."
@@ -59,7 +13,7 @@ project_paths:
 modules:
   graphbp:
     path: "external/graphbp/OpenMI/GraphBP/GraphBP"
-    trained_model_subdir: "trained_model_reduced_dataset_100_epochs"
+    trained_model: "trained_model_reduced_dataset_100_epochs"
     output_pattern: "gen_mols_epoch_{epoch}_mols_{num_gen}_bs_{known_binding_site}_pdbid_{pdbid}/sdf"
   
   hope_box:
@@ -70,17 +24,18 @@ modules:
     results_dir: "results"
     # results_subdir: "results_epoch_{epoch}_mols_{num_gen}_bs_{known_binding_site}_pdbid_{pdbid}"
   
-  vina:
+  vina_box:
     path: "external/vina"
     # Add vina-specific paths
 
 # Pipeline parameters (user-customizable)
 parameters:
   epoch: 99
-  num_gen: 1
+  num_gen: 2
   known_binding_site: False
   aurora: "B"
   pdbid: "4af3"
+  experiment: "ciao"
 
 # Resource settings
 resources:

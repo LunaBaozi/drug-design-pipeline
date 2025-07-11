@@ -18,9 +18,9 @@ onerror:
 
 rule generate:
     output:
-        "{trained_model_path}/epoch_{epoch}_mols_{num_gen}_bs_{known_binding_site}_pdbid_{pdbid}.mol_dict"
+        f"{config['modules']['graphbp']['path']}/{config['modules']['graphbp']['trained_model']}/epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}.mol_dict"
     params: 
-        trained_model_path = "{trained_model_path}",
+        graphbp_path = config['modules']['graphbp']['path'],
         epoch = "{epoch}",
         num_gen = "{num_gen}",
         known_binding_site = "{known_binding_site}",
@@ -28,10 +28,10 @@ rule generate:
     # conda:
     #     "../envs/graphbp/graphbp_conda_env.yml"
     benchmark:
-        "benchmarks/generate_{trained_model_path}_epoch_{epoch}_mols_{num_gen}_bs_{known_binding_site}_pdbid_{pdbid}.txt"
+        f"benchmarks/experiment_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/generation.txt" 
     shell:
         """
-        cd external/graphbp/OpenMI/GraphBP/GraphBP && \
+        cd {params.graphbp_path} && \
         python main_gen.py \
             --epoch {params.epoch} \
             --num_gen {params.num_gen} \
@@ -41,11 +41,11 @@ rule generate:
 
 rule evaluate:
     input:
-        "{trained_model_path}/epoch_{epoch}_mols_{num_gen}_bs_{known_binding_site}_pdbid_{pdbid}.mol_dict"
+        f"{config['modules']['graphbp']['path']}/{config['modules']['graphbp']['trained_model']}/epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}.mol_dict"
     output:
-        directory("{trained_model_path}/gen_mols_epoch_{epoch}_mols_{num_gen}_bs_{known_binding_site}_pdbid_{pdbid}/sdf")
+        directory(f"{config['modules']['graphbp']['path']}/{config['modules']['graphbp']['trained_model']}/gen_mols_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/sdf")
     params: 
-        trained_model_path = "{trained_model_path}",
+        graphbp_path = config['modules']['graphbp']['path'],
         epoch = "{epoch}",
         num_gen = "{num_gen}",
         known_binding_site = "{known_binding_site}",
@@ -53,10 +53,10 @@ rule evaluate:
     # conda:
     #     "../envs/graphbp/graphbp_conda_env.yml"
     benchmark:
-        "benchmarks/evaluate_{trained_model_path}_epoch_{epoch}_mols_{num_gen}_bs_{known_binding_site}_pdbid_{pdbid}.txt"
+        f"benchmarks/experiment_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/evaluation.txt"
     shell:
         """
-        cd external/graphbp/OpenMI/GraphBP/GraphBP && \
+        cd {params.graphbp_path} && \
         python main_eval.py \
             --num_gen {params.num_gen} \
             --epoch {params.epoch} \

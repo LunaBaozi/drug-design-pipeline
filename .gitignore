@@ -8,6 +8,9 @@ results/
 data/processed/
 .temp/
 *.tmp
+*.txt
+*.csv
+*.tsv
 
 # Logs
 *.log
