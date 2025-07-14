@@ -192,7 +192,7 @@ rule postprocess:
         f"{config['modules']['hope_box']['path']}/results/epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/merged_scores.csv",
         f"{config['modules']['hope_box']['path']}/results/epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/top_100_tanimoto.csv",
         f"{config['modules']['hope_box']['path']}/results/epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/top_50_sascore.csv",
-        directory(f"{config['modules']['vina_box']['path']}/{config['parameters']['aurora']}/epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/ligands")
+        directory(f"{config['modules']['equibind']['path']}/data/{{pdbid}}/experiment_{{epoch}}_{{num_gen}}_{{known_binding_site}}_{{pdbid}}/ligands")
     params:
         epoch = "{epoch}",
         num_gen = "{num_gen}",
@@ -202,45 +202,14 @@ rule postprocess:
         hope_box_path = lambda wildcards: config['modules']['hope_box']['path'],
         vina_path = lambda wildcards: config['modules']['vina_box']['path']
     benchmark:
-        f"benchmarks/experiment_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/graphics.txt"
+        f"benchmarks/experiment_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/post_processing.txt"
     shell:
         """
         cd {params.hope_box_path} && \
-        python graphics.py \
+        python post_processing.py \
             --epoch {params.epoch} \
             --num_gen {params.num_gen} \
             --known_binding_site {params.known_binding_site} \
             --pdbid {params.pdbid} \
             --aurora {params.aurora} 
         """
-
-# rule postprocess:
-#     input:
-#         lambda wildcards: [
-#             (directory(f"{config['trained_model_path']}/gen_mols_epoch_{wildcards.epoch}_mols_{wildcards.num_gen}_bs_{wildcards.known_binding_site}_pdbid_{wildcards.pdbid}/sdf")
-#              if config["epoch"] != 0
-#              else f"post_hoc_filtering/data/aurora_kinase_{wildcards.aurora}_interactions.csv"),
-#             f"post_hoc_filtering/results_epoch_{wildcards.epoch}_mols_{wildcards.num_gen}_bs_{wildcards.known_binding_site}_pdbid_{wildcards.pdbid}/synthesizability_scores_{wildcards.epoch}_{wildcards.num_gen}_{wildcards.known_binding_site}_{wildcards.pdbid}.csv",
-#             f"post_hoc_filtering/results_epoch_{wildcards.epoch}_mols_{wildcards.num_gen}_bs_{wildcards.known_binding_site}_pdbid_{wildcards.pdbid}/lipinski_pass_{wildcards.epoch}_{wildcards.num_gen}_{wildcards.known_binding_site}_{wildcards.pdbid}.csv",
-#             f"post_hoc_filtering/results_epoch_{wildcards.epoch}_mols_{wildcards.num_gen}_bs_{wildcards.known_binding_site}_pdbid_{wildcards.pdbid}/tanimoto_intra_{wildcards.epoch}_{wildcards.num_gen}_{wildcards.known_binding_site}_{wildcards.pdbid}.csv",
-#             f"post_hoc_filtering/results_epoch_{wildcards.epoch}_mols_{wildcards.num_gen}_bs_{wildcards.known_binding_site}_pdbid_{wildcards.pdbid}/tanimoto_inter_{wildcards.epoch}_{wildcards.num_gen}_{wildcards.known_binding_site}_{wildcards.pdbid}.csv",
-#             directory(f"post_hoc_filtering/results_epoch_{wildcards.epoch}_mols_{wildcards.num_gen}_bs_{wildcards.known_binding_site}_pdbid_{wildcards.pdbid}/images")
-#         ]
-#     output:
-#         "post_hoc_filtering/results_epoch_{epoch}_mols_{num_gen}_bs_{known_binding_site}_pdbid_{pdbid}/merged_scores_{epoch}_{num_gen}_{known_binding_site}_{pdbid}.csv",
-#         "post_hoc_filtering/results_epoch_{epoch}_mols_{num_gen}_bs_{known_binding_site}_pdbid_{pdbid}/top_100_tanimoto_{epoch}_{num_gen}_{known_binding_site}_{pdbid}.csv",
-#         "post_hoc_filtering/results_epoch_{epoch}_mols_{num_gen}_bs_{known_binding_site}_pdbid_{pdbid}/top_50_sascore_{epoch}_{num_gen}_{known_binding_site}_{pdbid}.csv",
-#         directory("docking/{pdbid}/experiment_epoch_{epoch}_mols_{num_gen}_bs_{known_binding_site}_pdbid_{pdbid}/ligands")
-#     benchmark:
-#         "benchmarks/postprocess_epoch_{epoch}_mols_{num_gen}_bs_{known_binding_site}_pdbid_{pdbid}.txt"
-#     params:
-#         num_gen = config["num_gen"],
-#         epoch = config["epoch"],
-#         known_binding_site = config["known_binding_site"],
-#         aurora = config["aurora"],
-#         pdbid = config["pdbid"]
-#     shell:
-#         "{config[python_env_path]} post_hoc_filtering/post_processing.py "
-#         "--num_gen {params.num_gen} --epoch {params.epoch} "
-#         "--known_binding_site {params.known_binding_site} "
-#         "--aurora {params.aurora} --pdbid {params.pdbid}"

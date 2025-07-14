@@ -27,6 +27,9 @@ modules:
   vina_box:
     path: "external/vina"
     # Add vina-specific paths
+  
+  equibind:
+    path: "external/equibind"
 
 # Pipeline parameters (user-customizable)
 parameters:
