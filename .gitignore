@@ -75,6 +75,8 @@ external/graphbp/OpenMI/GraphBP/GraphBP/questionsandnotes.txt
 external/graphbp/OpenMI/GraphBP/GraphBP/sifting.txt
 external/graphbp/OpenMI/GraphBP/GraphBP/*.html
 
+*.snakemake_timestamp
+
 
 
 

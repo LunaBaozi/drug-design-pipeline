@@ -33,13 +33,14 @@ onerror:
 rule all:
     input:
         expand(
-            "{path}/{results_dir}/epoch_{epoch}_mols_{num_gen}_bs_{known_binding_site}_pdbid_{pdbid}/merged_scores.csv",
+            "{path}/{results_dir}/experiment_{experiment}_epoch_{epoch}_mols_{num_gen}_bs_{known_binding_site}_pdbid_{pdbid}/merged_scores.csv",
             path=config['modules']['hope_box']['path'],
             results_dir=config['modules']['hope_box']['results_dir'],
             epoch=config['parameters']['epoch'],
             num_gen=config['parameters']['num_gen'],
             known_binding_site=config['parameters']['known_binding_site'],
-            pdbid=config['parameters']['pdbid']
+            pdbid=config['parameters']['pdbid'],
+            experiment=config['parameters']['experiment']
         )
 
 # Clean rule

@@ -34,7 +34,7 @@ modules:
 # Pipeline parameters (user-customizable)
 parameters:
   epoch: 99
-  num_gen: 2
+  num_gen: 10
   known_binding_site: False
   aurora: "B"
   pdbid: "4af3"
