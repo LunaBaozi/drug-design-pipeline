@@ -61,6 +61,5 @@ rule evaluate:
             --num_gen {params.num_gen} \
             --epoch {params.epoch} \
             --known_binding_site {params.known_binding_site} \
-            --pdbid {params.pdbid} && \
-        mkdir -p ../../../../{output}
+            --pdbid {params.pdbid}
         """
