@@ -30,15 +30,19 @@ modules:
   
   equibind:
     path: "external/equibind"
+    data_dir: "data"
+    scripts_dir: "scripts"
+    results_dir: "results"
+    experiment_pattern: "experiment_{experiment}_{epoch}_{num_gen}_{known_binding_site}_{pdbid}"
 
 # Pipeline parameters (user-customizable)
 parameters:
   epoch: 99
-  num_gen: 10
-  known_binding_site: False
+  num_gen: 3
+  known_binding_site: True
   aurora: "B"
   pdbid: "4af3"
-  experiment: "ciao"
+  experiment: "hello"
 
 # Resource settings
 resources:
