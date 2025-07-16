@@ -13,3 +13,6 @@
 [submodule "external/graphbp"]
 	path = external/graphbp
 	url = https://github.com/LunaBaozi/AIRS.git
+[submodule "external/diffdock"]
+	path = external/diffdock
+	url = https://github.com/LunaBaozi/DiffDock-ADME-Tox.git
