@@ -1,0 +1,31 @@
+name: equibind2_cpu
+channels:
+  - conda-forge
+  - defaults
+  - dglteam
+  - pytorch
+dependencies:
+  - python=3.10
+  - pytorch=2.3.*
+  - torchvision
+  - cpuonly
+  - dgl
+  - rdkit
+  - openbabel
+  - biopython
+  - biopandas
+  - joblib
+  - pyyaml
+  - matplotlib
+  - tensorboard
+  - numpy
+  - scipy
+  - pandas
+  - tqdm
+  - scikit-learn
+  - pip
+  - pip:
+    - torchdata==0.7.*
+    - pot
+    - dgllife
+    - icecream

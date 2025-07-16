@@ -33,7 +33,11 @@ onerror:
 rule all:
     input:
         expand(
-            "{path}/data/{pdbid}/experiment_{experiment}_{epoch}_{num_gen}_{known_binding_site}_{pdbid}/ligands/multiligand.sdf",
+            # "{path}/data/{pdbid}/experiment_{experiment}_{epoch}_{num_gen}_{known_binding_site}_{pdbid}/ligands/multiligand.sdf",
+            ["{path}/data/{pdbid}/experiment_{experiment}_{epoch}_{num_gen}_{known_binding_site}_{pdbid}/ligands/failed.txt",
+            "{path}/data/{pdbid}/experiment_{experiment}_{epoch}_{num_gen}_{known_binding_site}_{pdbid}/ligands/output.sdf",
+            "{path}/data/{pdbid}/experiment_{experiment}_{epoch}_{num_gen}_{known_binding_site}_{pdbid}/ligands/success.txt"
+            ],
             path=config['modules']['equibind']['path'],
             results_dir=config['modules']['equibind']['results_dir'],
             epoch=config['parameters']['epoch'],
