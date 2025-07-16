@@ -64,6 +64,6 @@ rule run_equibind:
         cd {params.equibind_path} && \
         python multiligand_inference.py \
             -o data/{wildcards.pdbid}/experiment_{wildcards.experiment}_{wildcards.epoch}_{wildcards.num_gen}_{wildcards.known_binding_site}_{wildcards.pdbid}/ligands/ \
-            -r data/{wildcards.pdbid}/experiment_{wildcards.experiment}_{wildcards.epoch}_{wildcards.num_gen}_{wildcards.known_binding_site}_{wildcards.pdbid}/ligands/4af3_A_rec_reduce_flip.pdb \
+            -r data/{wildcards.pdbid}/experiment_{wildcards.experiment}_{wildcards.epoch}_{wildcards.num_gen}_{wildcards.known_binding_site}_{wildcards.pdbid}/ligands/4af3_A_rec_reduce_noflip.pdb \
             -l data/{wildcards.pdbid}/experiment_{wildcards.experiment}_{wildcards.epoch}_{wildcards.num_gen}_{wildcards.known_binding_site}_{wildcards.pdbid}/ligands/multiligand.sdf 
         """
