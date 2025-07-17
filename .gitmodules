@@ -16,3 +16,6 @@
 [submodule "external/diffdock"]
 	path = external/diffdock
 	url = https://github.com/LunaBaozi/DiffDock-ADME-Tox.git
+[submodule "external/deltalinf9"]
+	path = external/deltalinf9
+	url = https://github.com/LunaBaozi/delta_LinF9_XGB.git
