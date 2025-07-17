@@ -11,6 +11,8 @@ data/processed/
 *.txt
 *.csv
 *.tsv
+*.png
+*.yml
 
 # Logs
 *.log

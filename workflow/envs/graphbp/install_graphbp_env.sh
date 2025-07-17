@@ -5,7 +5,7 @@
 
 set -e  # Exit on any error
 
-ENV_NAME="graphbp_pipeline_env"
+ENV_NAME="delta_linf9"
 PYTHON_VERSION="3.10"
 
 echo "============================================"

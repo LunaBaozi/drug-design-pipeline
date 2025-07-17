@@ -24,6 +24,7 @@ dependencies:
   - tqdm
   - scikit-learn
   - pip
+  - reduce
   - pip:
     - torchdata==0.7.*
     - pot

@@ -202,7 +202,7 @@ rule postprocess:
         f"{config['modules']['hope_box']['path']}/results/experiment_{{experiment}}_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/merged_scores.csv",
         f"{config['modules']['hope_box']['path']}/results/experiment_{{experiment}}_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/top_100_tanimoto.csv",
         f"{config['modules']['hope_box']['path']}/results/experiment_{{experiment}}_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/top_50_sascore.csv",
-        directory(f"{config['modules']['equibind']['path']}/data/{{pdbid}}/experiment_{{experiment}}_{{epoch}}_{{num_gen}}_{{known_binding_site}}_{{pdbid}}/ligands")
+        # directory(f"{config['modules']['equibind']['path']}/data/{{pdbid}}/experiment_{{experiment}}_{{epoch}}_{{num_gen}}_{{known_binding_site}}_{{pdbid}}/ligands")
     params:
         experiment = "{experiment}",
         epoch = "{epoch}",
