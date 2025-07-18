@@ -162,11 +162,13 @@ rule analyze_delta_linf9_results:
         f"benchmarks/experiment_{{experiment}}_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/analysis.txt"
     shell:
         """
+        # Ensure output directory exists
+        mkdir -p {params.output_dir}
+        
         # Check if we have any successful results
         if [ -s {input.ranked_results} ] && [ $(wc -l < {input.ranked_results}) -gt 1 ]; then
-            # Run analysis and visualization
-            cd {params.equibind_path} && \
-            python analyze_results.py \
+            # Run analysis and visualization without changing directory
+            python {params.equibind_path}/analyze_results.py \
                 {input.delta_results} \
                 -o {params.output_dir} \
                 -t 10 \
