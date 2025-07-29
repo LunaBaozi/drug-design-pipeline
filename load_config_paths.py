@@ -110,6 +110,20 @@ def get_hope_box_results_path(config, experiment, epoch, num_gen, known_binding_
     
     return str(full_path)
 
+def get_equibind_results_path(config, experiment, epoch, num_gen, known_binding_site, pdbid, filename):
+    """Build equibind results file path from config"""
+    script_dir = Path(__file__).parent
+    project_root = script_dir  # Now in the project root
+    
+    # Use the new results directory structure that matches Snakemake rules
+    results_subdir = f'experiment_{experiment}_{epoch}_{num_gen}_{known_binding_site}_{pdbid}'
+    full_path = project_root / 'results' / results_subdir / 'ligands' / filename
+    
+    # Create directory if it doesn't exist
+    full_path.parent.mkdir(parents=True, exist_ok=True)
+    
+    return str(full_path)
+
 
 def get_project_root():
     """Get the project root directory"""
@@ -200,6 +214,10 @@ class PipelinePaths:
     def equibind_ligands_path(self, experiment, epoch, num_gen, known_binding_site, pdbid):
         """Get EquiBind ligands directory path"""
         return get_equibind_ligands_path(self.config, experiment, epoch, num_gen, known_binding_site, pdbid)
+    
+    def equibind_results_path(self, experiment, epoch, num_gen, known_binding_site, pdbid, filename):
+        """Get EquiBind results file path"""
+        return get_equibind_results_path(self.config, experiment, epoch, num_gen, known_binding_site, pdbid, filename)
     
     # Convenience methods for specific file types
     def synthesizability_output_path(self, experiment, epoch, num_gen, known_binding_site, pdbid, output_file_arg=None):

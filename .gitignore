@@ -80,6 +80,14 @@ external/graphbp/OpenMI/GraphBP/GraphBP/*.html
 *.snakemake_timestamp
 
 
+# Ignore the mess made with DeltaLinF9
+analyze_structures.py
+compare_descriptors.py
+debug_delta.py
+test_conversion.py
+test_original.py
+test_structure_comparison.py
+benchmarks/
 
 
 # Don't ignore essential empty directories
