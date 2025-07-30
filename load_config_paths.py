@@ -117,7 +117,8 @@ def get_equibind_results_path(config, experiment, epoch, num_gen, known_binding_
     
     # Use the new results directory structure that matches Snakemake rules
     results_subdir = f'experiment_{experiment}_{epoch}_{num_gen}_{known_binding_site}_{pdbid}'
-    full_path = project_root / 'results' / results_subdir / 'ligands' / filename
+    full_path = project_root / 'external' / 'equibind' / 'results' / results_subdir / 'ligands' / filename
+    print(full_path)
     
     # Create directory if it doesn't exist
     full_path.parent.mkdir(parents=True, exist_ok=True)
