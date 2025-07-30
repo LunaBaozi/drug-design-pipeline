@@ -15,7 +15,7 @@ include: "workflow/rules/common.smk"
 include: "workflow/rules/graphbp.smk"
 include: "workflow/rules/hope_box.smk"
 include: "workflow/rules/equibind.smk"
-# include: "workflow/rules/vina_box.smk"
+include: "workflow/rules/vina_box.smk"
 
 start_time = time.time()
 
@@ -57,16 +57,24 @@ def get_target_files(config):
         "{equibind_path}/results/experiment_{experiment}_{epoch}_{num_gen}_{known_binding_site}_{pdbid}/ligands/output.sdf",
         "{equibind_path}/results/experiment_{experiment}_{epoch}_{num_gen}_{known_binding_site}_{pdbid}/ligands/success.txt",
         "{equibind_path}/results/experiment_{experiment}_{epoch}_{num_gen}_{known_binding_site}_{pdbid}/ligands/confidence_scores.csv",
+        "{equibind_path}/results/experiment_{experiment}_{epoch}_{num_gen}_{known_binding_site}_{pdbid}/ligands/top_15_confidence_with_synth.csv",
     ])
     
     # Delta LinF9 pipeline final output
     # files.append("benchmarks/experiment_{experiment}_epoch_{epoch}_mols_{num_gen}_bs_{known_binding_site}_pdbid_{pdbid}/final_pipeline_report.txt")
     
+    # Vina-box outputs
+    files.append("{vina_path}/{pdbid}/experiment_{experiment}_{epoch}_{num_gen}_{known_binding_site}_{pdbid}/vina_results.csv")
+    files.append("{vina_path}/{pdbid}/experiment_{experiment}_{epoch}_{num_gen}_{known_binding_site}_{pdbid}/vina_results_postprocessed.csv")
+    files.append("{vina_path}/{pdbid}/experiment_{experiment}_{epoch}_{num_gen}_{known_binding_site}_{pdbid}/sa_vs_affinity_plot.png")
+    files.append("{vina_path}/{pdbid}/experiment_{experiment}_{epoch}_{num_gen}_{known_binding_site}_{pdbid}/pareto_front.csv")
+
     return expand(files,
                   graphbp_path=config['modules']['graphbp']['path'],
                   trained_model=config['modules']['graphbp']['trained_model'],
                   hope_path=config['modules']['hope_box']['path'],
                   equibind_path=config['modules']['equibind']['path'],
+                  vina_path=config['modules']['vina_box']['path'],
                   epoch=config['parameters']['epoch'],
                   num_gen=config['parameters']['num_gen'],
                   known_binding_site=config['parameters']['known_binding_site'],

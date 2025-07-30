@@ -236,3 +236,16 @@ class PipelinePaths:
     def docking_output_path(self, experiment, epoch, num_gen, known_binding_site, pdbid, output_file_arg=None):
         """Get docking results output path"""
         return self.output_path(experiment, epoch, num_gen, known_binding_site, pdbid, output_file_arg, 'docking_scores')
+    
+    def vina_box_docking_path(self, pdbid, experiment, epoch, num_gen, known_binding_site, target_pdbid):
+        """Get Vina-box docking directory path"""
+        if not self.config:
+            # Fallback to relative path structure
+            return f"external/vina-box/{pdbid}/ligands/experiment_{experiment}_{epoch}_{num_gen}_{known_binding_site}_{target_pdbid}"
+        
+        vina_path = self.config['modules']['vina_box']['path']
+        experiment_dir = f"experiment_{experiment}_{epoch}_{num_gen}_{known_binding_site}_{target_pdbid}"
+        
+        # Build full path from project root
+        full_path = self.project_root / vina_path / pdbid / experiment_dir
+        return str(full_path)

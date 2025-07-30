@@ -107,6 +107,46 @@ rule run_equibind:
             -l {params.multiligand_rel}
         """
 
+rule postprocess_equibind:
+    input:
+        f"external/equibind/results/experiment_{{experiment}}_{{epoch}}_{{num_gen}}_{{known_binding_site}}_{{pdbid}}/ligands/failed.txt",
+        f"external/equibind/results/experiment_{{experiment}}_{{epoch}}_{{num_gen}}_{{known_binding_site}}_{{pdbid}}/ligands/output.sdf",
+        f"external/equibind/results/experiment_{{experiment}}_{{epoch}}_{{num_gen}}_{{known_binding_site}}_{{pdbid}}/ligands/success.txt",
+        f"external/equibind/results/experiment_{{experiment}}_{{epoch}}_{{num_gen}}_{{known_binding_site}}_{{pdbid}}/ligands/confidence_scores.csv"
+    output:
+        f"external/equibind/results/experiment_{{experiment}}_{{epoch}}_{{num_gen}}_{{known_binding_site}}_{{pdbid}}/ligands/top_15_confidence_with_synth.csv",
+        # directory(f"external/vina-box/docking/{{pdbid}}/experiment_{{experiment}}_{{epoch}}_{{num_gen}}_{{known_binding_site}}_{{pdbid}}")
+    params:
+        experiment = "{experiment}",
+        epoch = "{epoch}",
+        num_gen = "{num_gen}",
+        known_binding_site = "{known_binding_site}",
+        pdbid = "{pdbid}",
+        aurora = lambda wildcards: config['parameters']['aurora'],
+        equibind_path = lambda wildcards: config['modules']['equibind']['path'],
+        vina_path = lambda wildcards: config['modules']['vina_box']['path'],
+        # Use relative paths from the EquiBind directory
+        receptor_rel = lambda wildcards: f"data/{wildcards.pdbid}/experiment_{wildcards.experiment}_{wildcards.epoch}_{wildcards.num_gen}_{wildcards.known_binding_site}_{wildcards.pdbid}/ligands/{wildcards.pdbid}_A_rec_reduce_noflip.pdb",
+        multiligand_rel = lambda wildcards: f"data/{wildcards.pdbid}/experiment_{wildcards.experiment}_{wildcards.epoch}_{wildcards.num_gen}_{wildcards.known_binding_site}_{wildcards.pdbid}/ligands/multiligand.sdf",
+        output_dir_rel = lambda wildcards: f"results/experiment_{wildcards.experiment}_{wildcards.epoch}_{wildcards.num_gen}_{wildcards.known_binding_site}_{wildcards.pdbid}/ligands/"
+    conda:
+        "/vol/data/drug-design-pipeline/workflow/envs/environment_EB_cpu.yml"
+    # log:
+    #     "results/logs/equibind/{sample}_binding.log"
+    benchmark:
+        f"benchmarks/experiment_{{experiment}}_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/postprocess_EB.txt"
+    shell:
+        """
+        cd {params.equibind_path} && pwd && \
+        python post_processing.py \
+            --epoch {params.epoch} \
+            --num_gen {params.num_gen} \
+            --known_binding_site {params.known_binding_site} \
+            --pdbid {params.pdbid} \
+            --aurora {params.aurora} \
+            --experiment {params.experiment}
+        """
+
 # rule postprocess_equibind:
 #     input:
 #         failed_txt=f"results/experiment_{{experiment}}_{{epoch}}_{{num_gen}}_{{known_binding_site}}_{{pdbid}}/ligands/failed.txt",

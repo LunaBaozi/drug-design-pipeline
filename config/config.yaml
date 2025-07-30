@@ -25,7 +25,7 @@ modules:
     # results_subdir: "results_epoch_{epoch}_mols_{num_gen}_bs_{known_binding_site}_pdbid_{pdbid}"
   
   vina_box:
-    path: "external/vina"
+    path: "external/vina-box"
     # Add vina-specific paths
   
   equibind:
@@ -38,11 +38,11 @@ modules:
 # Pipeline parameters (user-customizable)
 parameters:
   epoch: 99
-  num_gen: 10
+  num_gen: 15
   known_binding_site: True
   aurora: "B"
   pdbid: "4af3"
-  experiment: "ebfinal"
+  experiment: "uffa"
   skip_generate: True
 
 # Resource settings
