@@ -59,7 +59,9 @@ rule lipinski:
             [get_graphbp_output_path(wildcards),
             f"{config['modules']['hope_box']['path']}/results/experiment_{{experiment}}_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/synthesizability_scores.csv"]
             if int(wildcards.epoch) != 0
-            else f"{config['modules']['hope_box']['path']}/{config['modules']['hope_box']['data_dir']}/aurora_kinase_{config['parameters']['aurora']}_interactions.csv"
+            else 
+            [f"{config['modules']['hope_box']['path']}/{config['modules']['hope_box']['data_dir']}/aurora_kinase_{config['parameters']['aurora']}_interactions.csv",
+            f"{config['modules']['hope_box']['path']}/results/experiment_{{experiment}}_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/synthesizability_scores.csv"]
         )
     output:
         f"{config['modules']['hope_box']['path']}/results/experiment_{{experiment}}_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/lipinski_pass.csv"
@@ -91,7 +93,9 @@ rule tanimoto_intra:
                 [get_graphbp_output_path(wildcards),
                 f"{config['modules']['hope_box']['path']}/results/experiment_{{experiment}}_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/lipinski_pass.csv"]
                 if int(wildcards.epoch) != 0
-                else f"{config['modules']['hope_box']['path']}/{config['modules']['hope_box']['data_dir']}/aurora_kinase_{config['parameters']['aurora']}_interactions.csv"
+                else 
+                [f"{config['modules']['hope_box']['path']}/{config['modules']['hope_box']['data_dir']}/aurora_kinase_{config['parameters']['aurora']}_interactions.csv",
+                f"{config['modules']['hope_box']['path']}/results/experiment_{{experiment}}_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/lipinski_pass.csv"]
             )
     output:
         f"{config['modules']['hope_box']['path']}/results/experiment_{{experiment}}_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/tanimoto_intra.csv"
@@ -123,7 +127,9 @@ rule tanimoto_inter:
                 [get_graphbp_output_path(wildcards),
                 f"{config['modules']['hope_box']['path']}/results/experiment_{{experiment}}_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/tanimoto_intra.csv"]
                 if int(wildcards.epoch) != 0
-                else f"{config['modules']['hope_box']['path']}/{config['modules']['hope_box']['data_dir']}/aurora_kinase_{config['parameters']['aurora']}_interactions.csv"
+                else 
+                [f"{config['modules']['hope_box']['path']}/{config['modules']['hope_box']['data_dir']}/aurora_kinase_{config['parameters']['aurora']}_interactions.csv",
+                f"{config['modules']['hope_box']['path']}/results/experiment_{{experiment}}_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/tanimoto_intra.csv"]
             )
     output:
         f"{config['modules']['hope_box']['path']}/results/experiment_{{experiment}}_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/tanimoto_inter.csv"
@@ -159,7 +165,13 @@ rule graphics:
                 f"{config['modules']['hope_box']['path']}/results/experiment_{{experiment}}_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/tanimoto_inter.csv"
                 ]
                 if int(wildcards.epoch) != 0
-                else f"{config['modules']['hope_box']['path']}/{config['modules']['hope_box']['data_dir']}/aurora_kinase_{config['parameters']['aurora']}_interactions.csv"
+                else 
+                [f"{config['modules']['hope_box']['path']}/{config['modules']['hope_box']['data_dir']}/aurora_kinase_{config['parameters']['aurora']}_interactions.csv",
+                f"{config['modules']['hope_box']['path']}/results/experiment_{{experiment}}_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/synthesizability_scores.csv",
+                f"{config['modules']['hope_box']['path']}/results/experiment_{{experiment}}_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/lipinski_pass.csv",
+                f"{config['modules']['hope_box']['path']}/results/experiment_{{experiment}}_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/tanimoto_intra.csv",
+                f"{config['modules']['hope_box']['path']}/results/experiment_{{experiment}}_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/tanimoto_inter.csv"
+                ]
             )
     output:
         directory(f"{config['modules']['hope_box']['path']}/results/experiment_{{experiment}}_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/images")
@@ -196,7 +208,14 @@ rule postprocess:
                 directory(f"{config['modules']['hope_box']['path']}/results/experiment_{{experiment}}_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/images")
                 ]
                 if int(wildcards.epoch) != 0
-                else f"{config['modules']['hope_box']['path']}/{config['modules']['hope_box']['data_dir']}/aurora_kinase_{config['parameters']['aurora']}_interactions.csv"
+                else 
+                [f"{config['modules']['hope_box']['path']}/{config['modules']['hope_box']['data_dir']}/aurora_kinase_{config['parameters']['aurora']}_interactions.csv",
+                f"{config['modules']['hope_box']['path']}/results/experiment_{{experiment}}_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/synthesizability_scores.csv",
+                f"{config['modules']['hope_box']['path']}/results/experiment_{{experiment}}_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/lipinski_pass.csv",
+                f"{config['modules']['hope_box']['path']}/results/experiment_{{experiment}}_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/tanimoto_intra.csv",
+                f"{config['modules']['hope_box']['path']}/results/experiment_{{experiment}}_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/tanimoto_inter.csv",
+                directory(f"{config['modules']['hope_box']['path']}/results/experiment_{{experiment}}_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/images")
+                ]
             )
     output:
         f"{config['modules']['hope_box']['path']}/results/experiment_{{experiment}}_epoch_{{epoch}}_mols_{{num_gen}}_bs_{{known_binding_site}}_pdbid_{{pdbid}}/merged_scores.csv",
