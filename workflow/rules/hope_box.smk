@@ -50,7 +50,7 @@ rule synthesizability:
         """
         
 # --output_file ../../{params.output_file}
-
+# {config[python_env_path]} synthesizability_scores.py \
 
 
 rule lipinski:

@@ -38,11 +38,11 @@ modules:
 # Pipeline parameters (user-customizable)
 parameters:
   epoch: 99
-  num_gen: 15
-  known_binding_site: True
+  num_gen: 1000
+  known_binding_site: False
   aurora: "B"
   pdbid: "4af3"
-  experiment: "uffa"
+  experiment: "E1" #"bmB" #
   skip_generate: True
 
 # Resource settings
