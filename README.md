@@ -82,8 +82,6 @@ python load_config_paths.py
 
 Place your input files in the [`data/`](data/) directory:
 - **Protein structures**: PDB format in `data/proteins/`
-- **Ligand libraries**: SDF/MOL2 format in `data/ligands/`
-- **Binding sites**: Coordinate files in `data/pockets/`
 
 ### 3. Run Pipeline
 
@@ -99,17 +97,6 @@ snakemake --cores 4
 snakemake --use-conda --cores 4
 ```
 
-### 4. Monitor Progress
-
-Check pipeline status:
-```bash
-# View workflow graph
-snakemake --dag | dot -Tpng > workflow.png
-
-# Check log files
-tail -f .snakemake/log/*.log
-```
-
 ## Pipeline Components
 
 ### Core Models
@@ -117,7 +104,7 @@ tail -f .snakemake/log/*.log
 - **[GraphBP](external/graphbp/)**: Graph neural networks for binding prediction
 - **[DiffDock](external/diffdock/)**: Diffusion models for molecular docking  
 - **[EquiBind](external/equibind/)**: Equivariant networks for binding pose prediction
-- **[Delta LinF9](external/deltalinf9/)**: Machine learning scoring functions
+- **[Delta LinF9](external/deltalinf9/)**: Machine learning scoring functions (in progress)
 
 ### Utilities
 
@@ -130,32 +117,6 @@ tail -f .snakemake/log/*.log
 - [`compare_descriptors.py`](compare_descriptors.py): Molecular descriptor comparison
 - [`test_structure_comparison.py`](test_structure_comparison.py): Structure-based evaluation
 
-## Usage Examples
-
-### Example 1: Single Protein-Ligand Docking
-
-```bash
-# Configure for single complex
-echo "protein: data/proteins/1abc.pdb" > config/single_run.yaml
-echo "ligand: data/ligands/compound1.sdf" >> config/single_run.yaml
-
-# Run specific rule
-snakemake dock_single --config configfile=config/single_run.yaml
-```
-
-### Example 2: High-Throughput Virtual Screening
-
-```bash
-# Configure for multiple ligands
-snakemake virtual_screening --cores 8 --config ligand_library=data/ligands/
-```
-
-### Example 3: Model Comparison
-
-```bash
-# Compare different docking approaches
-snakemake compare_models --config methods="[diffdock,equibind,vina]"
-```
 
 ## Output Structure
 
@@ -169,23 +130,8 @@ results/
 ├── figures/          # Generated plots and visualizations
 └── benchmarks/       # Performance benchmarks
 ```
+Every results directory has a specifically coded name for the experiment performed.
 
-## Configuration
-
-### Main Config File
-
-Edit [`config/config.yaml`](config/config.yaml) to customize:
-- Input/output paths
-- Model parameters
-- Computational resources
-- Analysis settings
-
-### Environment Variables
-
-Key paths are managed in [`load_config_paths.py`](load_config_paths.py):
-- Model checkpoint locations
-- External software paths
-- Data directory structure
 
 ## Troubleshooting
 
@@ -215,17 +161,6 @@ Key paths are managed in [`load_config_paths.py`](load_config_paths.py):
    pip install -r requirements.txt
    ```
 
-### Debug Mode
-
-Run with verbose output:
-```bash
-snakemake --verbose --debug-dag
-```
-
-Check specific rule execution:
-```bash
-snakemake target_rule --forcerun --verbose
-```
 
 ## Development
 
@@ -236,19 +171,6 @@ snakemake target_rule --forcerun --verbose
 3. Add rules to [`Snakefile`](Snakefile)
 4. Update configuration schema
 
-### Testing
-
-Run test suite:
-```bash
-# Structure validation tests
-python test_structure_validation/
-
-# Conversion tests  
-python test_conversion.py
-
-# Original functionality tests
-python test_original.py
-```
 
 ## Citation
 
@@ -269,13 +191,6 @@ This project is licensed under GPL-3.0. See individual model repositories for th
 3. Commit your changes (`git commit -m 'Add amazing feature'`)
 4. Push to branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
-
-## Support
-
-- Documentation: [workflow/README.md](workflow/)
-- Issues: GitHub Issues
-- Discussions: GitHub Discussions
-- Contact: [maintainer@email.com]
 
 ---
 
